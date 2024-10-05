@@ -21,7 +21,11 @@ router.get('/', async (req, res, next) => {
     }
 })
 router.get('/:id', checkCarId, async (req, res, next) => {
-    res.json(req.car)
+    if(req.car){
+        res.json(req.car)
+    } else {
+        next({ status: 404, message: `Car with id ${req.params.id} is not found` })
+    }
 })
 router.post('/',
     checkCarPayload,
